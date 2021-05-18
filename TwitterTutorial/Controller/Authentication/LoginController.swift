@@ -27,7 +27,7 @@ class LoginController: UIViewController {
     
     private lazy var passwordContainerView: UIView = {
         let image = #imageLiteral(resourceName: "ic_lock_outline_white_2x")
-        let view = Utilities().inputContainerView(withImage: image, textField: passwordTextfield)
+        let view = Utilities().inputContainerView(withImage: image, textField: passwordTextField)
         return view
     }()
     
@@ -36,7 +36,7 @@ class LoginController: UIViewController {
         return tf
     }()
     
-    private let passwordTextfield: UITextField = {
+    private let passwordTextField: UITextField = {
         let tf = Utilities().textField(withPlaceholder: "Password")
         tf.isSecureTextEntry = true
         return tf
@@ -75,7 +75,21 @@ class LoginController: UIViewController {
     }
     
     @objc func handleLogin() {
-        print("DEBUG: login")
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        
+        AuthService.logUserIn(withEmail: email, password: password) { (result, error) in
+            if let error = error {
+                print("DEBUG: Failed to register user \(error.localizedDescription)")
+                return
+            }
+            print("DEBUG: Success Login")
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+            guard let tab = window.rootViewController as? MainTabController else { return }
+            tab.checkIfUserIsLoggedIn()
+            
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     // MARK: - Helpers
