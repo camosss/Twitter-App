@@ -12,7 +12,14 @@ class MainTabController: UITabBarController {
     
     // MARK: - Properties
     
-    var user: User?
+    var user: User? {
+        didSet {
+            guard let nav = viewControllers?[0] as? UINavigationController else { return }
+            guard let feed = nav.viewControllers.first as? FeedController else { return }
+            
+            feed.user = user
+        }
+    }
     
     let actionButton: UIButton = {
         let button = UIButton(type: .system)
@@ -36,6 +43,7 @@ class MainTabController: UITabBarController {
     
     func fetchUser() {
         UserService.fetchUser { user in
+//            print("DEBUG: Main Tab user is \(user.username)")
             self.user = user
         }
     }
@@ -51,6 +59,7 @@ class MainTabController: UITabBarController {
         } else {
             configureViewControllers()
             configureUI()
+            fetchUser()
         }
     }
     
