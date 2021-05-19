@@ -12,6 +12,8 @@ class MainTabController: UITabBarController {
     
     // MARK: - Properties
     
+    var user: User?
+    
     let actionButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
@@ -31,6 +33,12 @@ class MainTabController: UITabBarController {
     }
     
     // MARK: - API
+    
+    func fetchUser() {
+        UserService.fetchUser { user in
+            self.user = user
+        }
+    }
     
     func checkIfUserIsLoggedIn() {
         if Auth.auth().currentUser == nil {

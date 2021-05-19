@@ -2,7 +2,7 @@
 //  Constants.swift
 //  TwitterTutorial
 //
-//  Created by 강호성 on 2021/05/18.
+//  Created by 강호성 on 2021/05/19.
 //
 
 import Firebase

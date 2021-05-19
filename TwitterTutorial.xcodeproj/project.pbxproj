@@ -22,10 +22,12 @@
 		B4088D3126526F0400E97C9B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4088D3026526F0400E97C9B /* LoginController.swift */; };
 		B4088D3426526F0E00E97C9B /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4088D3326526F0E00E97C9B /* RegistrationController.swift */; };
 		B4088D37265277BC00E97C9B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4088D36265277BC00E97C9B /* Utilities.swift */; };
+		B40DB02E265410BA0009C6FC /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40DB02D265410BA0009C6FC /* ImageUploader.swift */; };
+		B40DB03D26541C540009C6FC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40DB03C26541C540009C6FC /* Constants.swift */; };
 		B428E02426538D9E00B43F1E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B428E02326538D9E00B43F1E /* GoogleService-Info.plist */; };
-		B428E048265398D700B43F1E /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B428E047265398D700B43F1E /* AuthService.swift */; };
-		B428E04B265399E800B43F1E /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B428E04A265399E800B43F1E /* ImageUploader.swift */; };
-		B428E04E26539A5600B43F1E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B428E04D26539A5600B43F1E /* Constants.swift */; };
+		B45023BC2654A95700495C35 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45023BB2654A95700495C35 /* AuthService.swift */; };
+		B45023BF2654AD8300495C35 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45023BE2654AD8300495C35 /* UserService.swift */; };
+		B45023C22654ADAF00495C35 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45023C12654ADAF00495C35 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,10 +48,12 @@
 		B4088D3026526F0400E97C9B /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		B4088D3326526F0E00E97C9B /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		B4088D36265277BC00E97C9B /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		B40DB02D265410BA0009C6FC /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
+		B40DB03C26541C540009C6FC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B428E02326538D9E00B43F1E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
-		B428E047265398D700B43F1E /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
-		B428E04A265399E800B43F1E /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
-		B428E04D26539A5600B43F1E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B45023BB2654A95700495C35 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		B45023BE2654AD8300495C35 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		B45023C12654ADAF00495C35 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C81D0D8654765C62AB7498DA /* Pods-TwitterTutorial.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwitterTutorial.release.xcconfig"; path = "Target Support Files/Pods-TwitterTutorial/Pods-TwitterTutorial.release.xcconfig"; sourceTree = "<group>"; };
 		FA6B0F7A16A181C29C16DE6F /* Pods_TwitterTutorial.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwitterTutorial.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -117,7 +121,7 @@
 			children = (
 				B4088D2B265259AE00E97C9B /* Extensions.swift */,
 				B4088D36265277BC00E97C9B /* Utilities.swift */,
-				B428E04D26539A5600B43F1E /* Constants.swift */,
+				B40DB03C26541C540009C6FC /* Constants.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -125,8 +129,9 @@
 		B4088D1626524FE800E97C9B /* API */ = {
 			isa = PBXGroup;
 			children = (
-				B428E047265398D700B43F1E /* AuthService.swift */,
-				B428E04A265399E800B43F1E /* ImageUploader.swift */,
+				B40DB02D265410BA0009C6FC /* ImageUploader.swift */,
+				B45023BB2654A95700495C35 /* AuthService.swift */,
+				B45023BE2654AD8300495C35 /* UserService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -161,6 +166,7 @@
 		B4088D1A2652500600E97C9B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B45023C12654ADAF00495C35 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -301,17 +307,19 @@
 				B4088D262652542400E97C9B /* NotificationsController.swift in Sources */,
 				B4088D292652542D00E97C9B /* ConversationsController.swift in Sources */,
 				B4088D37265277BC00E97C9B /* Utilities.swift in Sources */,
-				B428E048265398D700B43F1E /* AuthService.swift in Sources */,
 				B4088CFB26524F8C00E97C9B /* AppDelegate.swift in Sources */,
-				B428E04B265399E800B43F1E /* ImageUploader.swift in Sources */,
+				B45023C22654ADAF00495C35 /* User.swift in Sources */,
 				B4088D2C265259AE00E97C9B /* Extensions.swift in Sources */,
 				B4088D3126526F0400E97C9B /* LoginController.swift in Sources */,
 				B4088D232652541B00E97C9B /* ExploreController.swift in Sources */,
+				B40DB03D26541C540009C6FC /* Constants.swift in Sources */,
 				B4088CFD26524F8C00E97C9B /* SceneDelegate.swift in Sources */,
 				B4088D1D2652504800E97C9B /* MainTabController.swift in Sources */,
-				B428E04E26539A5600B43F1E /* Constants.swift in Sources */,
+				B40DB02E265410BA0009C6FC /* ImageUploader.swift in Sources */,
+				B45023BF2654AD8300495C35 /* UserService.swift in Sources */,
 				B4088D3426526F0E00E97C9B /* RegistrationController.swift in Sources */,
 				B4088D202652540B00E97C9B /* FeedController.swift in Sources */,
+				B45023BC2654A95700495C35 /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
