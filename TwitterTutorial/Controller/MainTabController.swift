@@ -91,7 +91,7 @@ class MainTabController: UITabBarController {
     
     func configureViewControllers() {
         
-        let feed = templateNavigationController(image: #imageLiteral(resourceName: "home_unselected"), rootViewController: FeedController())
+        let feed = templateNavigationController(image: #imageLiteral(resourceName: "home_unselected"), rootViewController: FeedController(collectionViewLayout: UICollectionViewFlowLayout()))
         
         let explore = templateNavigationController(image: #imageLiteral(resourceName: "search_unselected"), rootViewController: ExploreController())
 
