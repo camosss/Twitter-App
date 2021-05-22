@@ -7,7 +7,6 @@
 
 import UIKit
 
-// 1. protocol 생성
 protocol TweetCellDelegate: class {
     func handleProfileImageTapped()
 }
@@ -124,7 +123,6 @@ class TweetCell: UICollectionViewCell {
     // MARK: - Actions
     
     @objc func handleProfileImageTapped() {
-        // 2. FeedController를 이동하여 해당기능을 찾고 실행
         delegate?.handleProfileImageTapped()
     }
     
