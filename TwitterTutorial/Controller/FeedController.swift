@@ -76,7 +76,9 @@ extension FeedController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell
-//        print("DEBUG: \(indexPath.row)")
+        
+        // FeedController가 TweetCellDelegate를 따르기 때문에 self(FeedController 자체참조)
+        cell.delegate = self
         cell.tweet = tweets[indexPath.row]
         return cell
     }
@@ -87,5 +89,14 @@ extension FeedController {
 extension FeedController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 120)
+    }
+}
+
+    // MARK: - TweetCellDelegate
+// 3. TweetCell @objc에서 넘어와서 코드 실행
+extension FeedController: TweetCellDelegate {
+    func handleProfileImageTapped() {
+        let controller = ProfileController(collectionViewLayout: UICollectionViewFlowLayout())
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
