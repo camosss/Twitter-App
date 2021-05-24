@@ -10,6 +10,10 @@ import UIKit
 class ProfileHeader: UICollectionReusableView {
     
     // MARK: - Properties
+    // 2.
+    var user: User? {
+        didSet { configure() }
+    }
     
     private let filterBar = ProfileFilterView()
     
@@ -81,6 +85,30 @@ class ProfileHeader: UICollectionReusableView {
         return view
     }()
     
+    private let followingLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "0 Following"
+        
+        let followTap = UITapGestureRecognizer(target: self, action: #selector(handleFollowersTapped))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(followTap)
+        
+        return label
+    }()
+    
+    private let followersLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "2 Followers"
+        
+        let followTap = UITapGestureRecognizer(target: self, action: #selector(handleFollowingTapped))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(followTap)
+        
+        return label
+    }()
+    
     // MARK: - Lifecycle
     
     override init(frame: CGRect) {
@@ -110,6 +138,14 @@ class ProfileHeader: UICollectionReusableView {
         addSubview(userDetailStack)
         userDetailStack.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 8, paddingLeft: 12, paddingRight: 12)
         
+        let followStack = UIStackView(arrangedSubviews: [followingLabel, followersLabel])
+        followStack.axis = .horizontal
+        followStack.spacing = 8
+        followStack.distribution = .fillEqually
+        
+        addSubview(followStack)
+        followStack.anchor(top: userDetailStack.bottomAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 12)
+        
         addSubview(filterBar)
         filterBar.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 50)
         
@@ -123,12 +159,31 @@ class ProfileHeader: UICollectionReusableView {
     
     // MARK: - Actions
     
+    @objc func handleFollowingTapped() {
+        
+    }
+    
+    @objc func handleFollowersTapped() {
+        
+    }
+    
     @objc func handleEditFollow() {
         
     }
     
     @objc func handleDismiss() {
         
+    }
+    
+    // MARK: - Helpers
+    // 3.
+    func configure() {
+        guard let user = user else { return }
+        
+        let viewModel = ProfileHeaderViewModel(user: user)
+        
+        followingLabel.attributedText = viewModel.followingString
+        followersLabel.attributedText = viewModel.followersString
     }
 }
 

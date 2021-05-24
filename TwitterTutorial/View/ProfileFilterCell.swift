@@ -10,7 +10,7 @@ import UIKit
 class ProfileFilterCell: UICollectionViewCell {
     
     // MARK: - Properties
-    // 2.
+    
     var option: ProfileFilterOptions! {
         didSet { titleLabel.text = option.description }
     }
