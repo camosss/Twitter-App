@@ -13,7 +13,7 @@ private let headerIdentifier = "ProfileHeader"
 class ProfileController: UICollectionViewController {
     
     // MARK: - Properties
-    // 4. controller에 user 연결
+    // controller에 user 연결
     private let user: User
     
     // MARK: - Lifecycle
@@ -31,7 +31,6 @@ class ProfileController: UICollectionViewController {
         super.viewDidLoad()
         configureCollectionView()
         
-        print("DEBUG: \(user.username)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,7 +70,7 @@ extension ProfileController {
 extension ProfileController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! ProfileHeader
-        // 5.
+        
         header.user = user
         return header
     }

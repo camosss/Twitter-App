@@ -186,11 +186,9 @@
 		B4088D192652500000E97C9B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B42B0DEB265B91190082D573 /* Profile */,
 				B4108DD326563CE100D0A5E9 /* CaptionTextView.swift */,
 				B41EC730265776BE00C1088A /* TweetCell.swift */,
-				B42251692658F98C00AC3D6B /* ProfileHeader.swift */,
-				B422516E26591D5700AC3D6B /* ProfileFilterView.swift */,
-				B422517126591F2F00AC3D6B /* ProfileFilterCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -211,6 +209,16 @@
 				B4088D3326526F0E00E97C9B /* RegistrationController.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		B42B0DEB265B91190082D573 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				B42251692658F98C00AC3D6B /* ProfileHeader.swift */,
+				B422516E26591D5700AC3D6B /* ProfileFilterView.swift */,
+				B422517126591F2F00AC3D6B /* ProfileFilterCell.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		F11BCD429D24AC9F6349D0BA /* Pods */ = {

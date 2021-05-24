@@ -20,7 +20,7 @@ enum ProfileFilterOptions: Int, CaseIterable {
         }
     }
 }
-// 1.
+
 struct ProfileHeaderViewModel {
     
     private let user: User
@@ -31,6 +31,14 @@ struct ProfileHeaderViewModel {
     
     var followingString: NSAttributedString? {
         return attributedText(withValue: 2, text: "following")
+    }
+    
+    var actionButtonTitle: String {
+        if user.isCurrentUser {
+            return "Edit Profile"
+        } else {
+            return "follow"
+        }
     }
     
     init(user: User) {
