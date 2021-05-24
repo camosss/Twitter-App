@@ -30,6 +30,13 @@ class FeedController: UICollectionViewController {
         fetchTweets()
     }
     
+    // Profile에서 back했을때 NavigationBar Missing Error Fix
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.isHidden = false
+    }
+    
     // MARK: - API
     
     func fetchTweets() {
