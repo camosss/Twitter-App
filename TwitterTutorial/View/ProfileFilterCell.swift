@@ -10,12 +10,15 @@ import UIKit
 class ProfileFilterCell: UICollectionViewCell {
     
     // MARK: - Properties
+    // 2.
+    var option: ProfileFilterOptions! {
+        didSet { titleLabel.text = option.description }
+    }
     
     let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 14)
-        label.text = "Test"
         return label
     }()
     

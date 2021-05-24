@@ -86,7 +86,6 @@ class ProfileHeader: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        // 4.
         filterBar.delegate = self
             
         addSubview(containerView)
@@ -134,7 +133,7 @@ class ProfileHeader: UICollectionReusableView {
 }
 
     // MARK: - ProfileFilterViewDelegate
-// 3. 원하는 작업 수행
+
 extension ProfileHeader: ProfileFilterViewDelegate {
     func filterView(_ view: ProfileFilterView, didSelect indexPath: IndexPath) {
         // 해당 indexPath(경로)에 대한 cell을 얻는다
