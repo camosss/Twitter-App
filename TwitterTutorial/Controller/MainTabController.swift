@@ -36,24 +36,22 @@ class MainTabController: UITabBarController {
         super.viewDidLoad()
 //        logUserOut()
         view.backgroundColor = .twitterBlue
-        checkIfUserIsLoggedIn()
+        authenticateUserAndConfigureUI()
     }
     
     // MARK: - API
     
     func fetchUser() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        UserService.fetchUser(uid: uid) { user in
-//            print("DEBUG: Main Tab user is \(user.username)")
+        UserService.shared.fetchUser(uid: uid) { user in
             self.user = user
         }
     }
     
-    func checkIfUserIsLoggedIn() {
+    func authenticateUserAndConfigureUI() {
         if Auth.auth().currentUser == nil {
             DispatchQueue.main.async {
-                let controller = LoginController()
-                let nav = UINavigationController(rootViewController: controller)
+                let nav = UINavigationController(rootViewController: LoginController())
                 nav.modalPresentationStyle = .fullScreen
                 self.present(nav, animated: true, completion: nil)
             }

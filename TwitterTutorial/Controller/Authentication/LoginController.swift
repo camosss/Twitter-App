@@ -78,15 +78,16 @@ class LoginController: UIViewController {
         guard let email = emailTextField.text else { return }
         guard let password = passwordTextField.text else { return }
         
-        AuthService.logUserIn(withEmail: email, password: password) { (result, error) in
+        AuthService.shared.logUserIn(withEmail: email, password: password) { (result, error) in
             if let error = error {
-                print("DEBUG: Failed to register user \(error.localizedDescription)")
+                print("DEBUG: Error logging in \(error.localizedDescription)")
                 return
             }
-            print("DEBUG: Success Login")
+            
             guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
             guard let tab = window.rootViewController as? MainTabController else { return }
-            tab.checkIfUserIsLoggedIn()
+            
+            tab.authenticateUserAndConfigureUI()
             
             self.dismiss(animated: true, completion: nil)
         }

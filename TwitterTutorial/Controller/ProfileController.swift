@@ -40,6 +40,10 @@ class ProfileController: UICollectionViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
+    // MARK: - API
+    
+    
+    
     // MARK: - Helpers
     
     func configureCollectionView() {

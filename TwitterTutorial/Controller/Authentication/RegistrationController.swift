@@ -96,23 +96,23 @@ class RegistrationController: UIViewController {
     // MARK: - Actions
     
     @objc func handleRegistration() {
-        guard let profileImage = profileImage else { return }
+        guard let profileImage = profileImage else {
+            print("DEBUG: Please select a profile image..")
+            return
+        }
         guard let email = emailTextField.text else { return }
         guard let password = passwordTextfield.text else { return }
         guard let fullname = fullnameTextField.text else { return }
         guard let username = usernameTextfield.text?.lowercased() else { return }
         
-        let credentials = AuthCredentials(email: email, password: password, fullname: fullname, username: username, profileImage: profileImage)
+        let credentials = AuthCredentials(email: email, password: password, fullname: fullname,
+                                          username: username, profileImage: profileImage)
         
-        AuthService.registerUser(withCredential: credentials) { error in
-            if let error = error {
-                print("DEBUG: Failed to register user \(error.localizedDescription)")
-                return
-            }
-            print("DEBUG: Success Registration")
+        AuthService.shared.registerUser(credentials: credentials) { (error, ref) in
             guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
             guard let tab = window.rootViewController as? MainTabController else { return }
-            tab.checkIfUserIsLoggedIn()
+            
+            tab.authenticateUserAndConfigureUI()
             
             self.dismiss(animated: true, completion: nil)
         }

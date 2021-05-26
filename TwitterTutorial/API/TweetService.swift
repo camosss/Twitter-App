@@ -7,34 +7,36 @@
 
 import Firebase
 
-typealias FireStoreCompletion = (Error?) -> Void
-
 struct TweetService {
+    static let shared = TweetService()
     
-    static func uploadTweet(caption: String, completion: @escaping(FireStoreCompletion)) {
+    func uploadTweet(caption: String, completion: @escaping(Error?, DatabaseReference) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        let data = ["uid": uid,
-                    "timestamp": Timestamp(date: Date()),
-                    "likes": 0,
-                    "retweets": 0,
-                    "caption": caption] as [String: Any]
+        let values = ["uid": uid,
+                      "timestamp": Int(NSDate().timeIntervalSince1970),
+                      "likes": 0,
+                      "retweets": 0,
+                      "caption": caption] as [String : Any]
         
-        COLLECTION_TWEETS.addDocument(data: data, completion: completion)
+        REF_TWEETS.childByAutoId().updateChildValues(values, withCompletionBlock: completion)
+        
     }
     
-    static func fetchTweets(completion: @escaping([Tweet]) -> Void) {
+    func fetchTweets(completion: @escaping([Tweet]) -> Void) {
+        var tweets = [Tweet]()
         
-        COLLECTION_TWEETS.order(by: "timestamp", descending: true).getDocuments { snapshot, _ in
-            guard let documents = snapshot?.documents else { return }
-            guard let uid = Auth.auth().currentUser?.uid else { return }
+        REF_TWEETS.observe(.childAdded) { snapshot in
+            guard let dictionary = snapshot.value as? [String:Any] else { return }
+            guard let uid = dictionary["uid"] as? String else { return }
+            let tweetID = snapshot.key
             
-            UserService.fetchUser(uid: uid) { user in
-                let tweets = documents.map({ Tweet(user: user, tweetID: $0.documentID, dictionary: $0.data()) })
+            UserService.shared.fetchUser(uid: uid) { user in
+                let tweet = Tweet(user: user, tweetID: tweetID, dictionary: dictionary)
+                tweets.append(tweet)
                 completion(tweets)
             }
         }
     }
 }
-
-
+    
