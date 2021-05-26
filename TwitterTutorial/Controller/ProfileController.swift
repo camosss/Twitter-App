@@ -16,6 +16,11 @@ class ProfileController: UICollectionViewController {
     // controller에 user 연결
     private let user: User
     
+    // 프로필에서 tweet을 배열로 채워야 함
+    private var tweets = [Tweet]() {
+        didSet { collectionView.reloadData() }
+    }
+    
     // MARK: - Lifecycle
     
     init(user: User) {
@@ -30,7 +35,7 @@ class ProfileController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        
+        fetchTweets()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,7 +47,11 @@ class ProfileController: UICollectionViewController {
     
     // MARK: - API
     
-    
+    func fetchTweets() {
+        TweetService.shared.fetchTweets(forUser: user) { tweets in
+            self.tweets = tweets
+        }
+    }
     
     // MARK: - Helpers
     
@@ -60,11 +69,12 @@ class ProfileController: UICollectionViewController {
 
 extension ProfileController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return tweets.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuserIdentifier, for: indexPath) as! TweetCell
+        cell.tweet = tweets[indexPath.row]
         return cell
     }
 }
@@ -76,7 +86,7 @@ extension ProfileController {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! ProfileHeader
         
         header.user = user
-        // 4. header에 대한 delegate
+        // header에 대한 delegate
         header.delegate = self
         return header
     }
@@ -95,7 +105,7 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
 }
 
     // MARK: - ProfileHeaderDelegate
-// 3.
+
 extension ProfileController: ProfileHeaderDelegate {
     func handleDismiss() {
         navigationController?.popViewController(animated: true)

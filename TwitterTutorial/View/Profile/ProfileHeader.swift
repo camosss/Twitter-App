@@ -6,7 +6,7 @@
 //
 
 import UIKit
-// 1.
+
 protocol ProfileHeaderDelegate: class {
     func handleDismiss()
 }
@@ -175,7 +175,6 @@ class ProfileHeader: UICollectionReusableView {
     
     @objc func handleDismiss() {
         // View에서는 dismiss 기능이 없기때문에 protocol 사용
-        // 2.
         delegate?.handleDismiss()
     }
     
