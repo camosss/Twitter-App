@@ -44,8 +44,9 @@ class ExploreController: UITableViewController {
         tableView.separatorStyle = .none
     }
 
-
 }
+
+    // MARK: - UITableViewDataSource
 
 extension ExploreController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -54,6 +55,8 @@ extension ExploreController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! UserCell
+        // 각 cell에 속하는 사용자 개체를 채워야함 -> 사용자인덱스와 같도록
+        cell.user = users[indexPath.row]
         return cell
     }
 }
