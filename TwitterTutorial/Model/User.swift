@@ -17,11 +17,12 @@ struct User {
     
     var isCurrentUser: Bool { return Auth.auth().currentUser?.uid == uid }
     
-    init(uid: String, dictionary: [String: Any]) {
+    init(uid: String, dictionary: [String: AnyObject]) {
+        self.uid = uid
+        
         self.email = dictionary["email"] as? String ?? ""
         self.fullname = dictionary["fullname"] as? String ?? ""
         self.username = dictionary["username"] as? String ?? ""
-        self.uid = dictionary["uid"] as? String ?? ""
         
         if let profileImageUrlString = dictionary["profileImageUrl"] as? String {
             guard let url = URL(string: profileImageUrlString) else { return }
