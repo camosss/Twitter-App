@@ -14,7 +14,7 @@ class ProfileController: UICollectionViewController {
     
     // MARK: - Properties
     // controller에 user 연결
-    private let user: User
+    private var user: User
     
     // 프로필에서 tweet을 배열로 채워야 함
     private var tweets = [Tweet]() {
@@ -108,8 +108,15 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
 
 extension ProfileController: ProfileHeaderDelegate {
     func handleEditProfileFollow(_ header: ProfileHeader) {
-        UserService.shared.followUser(uid: user.uid) { ref, err in
-            print(".")
+
+        if user.isFollowed {
+            UserService.shared.unfollowUser(uid: user.uid) { err, ref in
+                self.user.isFollowed = false
+            }
+        } else {
+            UserService.shared.followUser(uid: user.uid) { ref, err in
+                self.user.isFollowed = true
+            }
         }
     }
     
