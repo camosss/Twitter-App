@@ -88,6 +88,11 @@ extension FeedController {
         cell.tweet = tweets[indexPath.row]
         return cell
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let controller = TweetController(tweet: tweets[indexPath.row]) // 해당 tweet 가져오기
+        navigationController?.pushViewController(controller, animated: true)
+    }
 }
 
     // MARK: - UICollectionViewDelegateFloowlayout
