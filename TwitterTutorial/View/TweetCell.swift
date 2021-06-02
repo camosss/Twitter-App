@@ -39,7 +39,6 @@ class TweetCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.numberOfLines = 0
-        label.text = "test caption"
         return label
     }()
     
@@ -97,11 +96,10 @@ class TweetCell: UICollectionViewCell {
         stack.spacing = 4
         
         infoLabel.font = UIFont.systemFont(ofSize: 14)
-        infoLabel.text = "EEEEE @vv"
         
         let actionStack = UIStackView(arrangedSubviews: [commentButton, retweetButton, likeButton, shareButton])
         actionStack.axis = .horizontal
-        actionStack.spacing = 72
+        actionStack.spacing = 57
         
         addSubview(actionStack)
         actionStack.centerX(inView: self)

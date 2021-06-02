@@ -17,12 +17,12 @@ class ExploreController: UITableViewController {
         didSet { tableView.reloadData() }
     }
     
-    // 3. User 배열을 필터링
+    // User 배열을 필터링
     private var filteredUsers = [User]() {
         didSet { tableView.reloadData() }
     }
     
-    // 4. 검색모드에 있는지 여부
+    // 검색모드에 있는지 여부
     private var inSearchMode: Bool {
         return searchController.isActive && !searchController.searchBar.text!.isEmpty
     }
@@ -63,7 +63,7 @@ class ExploreController: UITableViewController {
         tableView.separatorStyle = .none
     }
     
-    // 1. search bar 생성
+    // search bar 생성
     func configureSeachController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -97,12 +97,12 @@ extension ExploreController {
 }
 
     // MARK: - UISearchResultsUpdating
-// 2. text를 칠 때마다 반응
+//  text를 칠 때마다 반응
 extension ExploreController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text?.lowercased() else { return }
         
-        // 5. filter된 사용자로 채우기
+        // filter된 사용자로 채우기
         filteredUsers = users.filter({ $0.username.contains(searchText) })
     }
 }

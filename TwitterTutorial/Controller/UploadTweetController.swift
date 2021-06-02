@@ -88,6 +88,7 @@ class UploadTweetController: UIViewController {
         let stack = UIStackView(arrangedSubviews: [profileImageView, captionTextView])
         stack.axis = .horizontal
         stack.spacing = 12
+        stack.alignment = .leading // 각 구성요소의 올바른 크기를 지정
         
         view.addSubview(stack)
         stack.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 16, paddingLeft: 16, paddingRight: 16)
