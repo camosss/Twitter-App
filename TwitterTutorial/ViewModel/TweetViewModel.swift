@@ -70,7 +70,7 @@ struct TweetViewModel {
         return attributedTitle
     }
     
-    // 1 feed에 동적인 caption을 위한 함수
+    // feed에 동적인 caption을 위한 함수
     func size(forWidth width: CGFloat) -> CGSize {
         let measurementLabel = UILabel()
         measurementLabel.text = tweet.caption

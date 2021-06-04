@@ -13,6 +13,10 @@ class UploadTweetController: UIViewController {
     
     private let user: User
     
+    // 1 tweet과 reply viewModel 가져오기
+    private let config: UploadTweetConfiguration
+    private lazy var viewModel = UploadTweetViewModel(config: config)
+    
     private lazy var actionButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .twitterBlue
@@ -42,8 +46,9 @@ class UploadTweetController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(user: User) {
+    init(user: User, config: UploadTweetConfiguration) {
         self.user = user
+        self.config = config
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -55,7 +60,12 @@ class UploadTweetController: UIViewController {
         super.viewDidLoad()
         configureUI()
         
-        print("DEBUG: \(user.username)")
+        switch config {
+        case .tweet:
+            print("DEBUG: Config is tweet")
+        case .reply(let tweet):
+            print("DEBUG: Replying to \(tweet.caption)")
+        }
     }
     
     // MARK: - Actions
