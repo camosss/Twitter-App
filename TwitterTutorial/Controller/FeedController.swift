@@ -109,7 +109,6 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
     // MARK: - TweetCellDelegate
 
 extension FeedController: TweetCellDelegate {
-    // 3 구현
     func handleReplyTapped(_ cell: TweetCell) {
         guard let tweet = cell.tweet else { return }
         let controller = UploadTweetController(user: tweet.user, config: .reply(tweet))
