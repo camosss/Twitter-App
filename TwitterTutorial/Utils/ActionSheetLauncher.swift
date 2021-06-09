@@ -9,6 +9,10 @@ import UIKit
 
 private let reuserIdentifier = "ActionSheetCell"
 
+protocol ActionSheetLauncherDelegate: class {
+    func didSelect(option: ActionSheetOptions)
+}
+
 class ActionSheetLauncher: NSObject {
     
     // MARK: - Properties
@@ -16,8 +20,10 @@ class ActionSheetLauncher: NSObject {
     private let user: User
     private let tableView = UITableView()
     private var window: UIWindow? // 앱이 포함된 창을 나타낸다
-    // 1. viewModel을 가지고 와서 cell의 count를 반환한다. (여기까지는 count만 받는다)
+    // viewModel을 가지고 와서 cell의 count를 반환한다. (여기까지는 count만 받는다)
     private lazy var viewModel = ActionSheetViewModel(user: user)
+    weak var delegate: ActionSheetLauncherDelegate?
+    private var tableViewHeight: CGFloat?
     
     private lazy var blackView: UIView = {
         let view = UIView()
@@ -74,6 +80,14 @@ class ActionSheetLauncher: NSObject {
     
     // MARK: - Helpers
     
+    func showTableView(_ shouldShow: Bool) {
+        guard let window = window else { return }
+        guard let height = tableViewHeight else { return }
+        
+        let y = shouldShow ? window.frame.height - height : window.frame.height
+        tableView.frame.origin.y = y
+    }
+    
     // actionSheet 보이기
     func show() {
 //        print("DEBUG: Show action sheet for user \(user.username)")
@@ -86,12 +100,14 @@ class ActionSheetLauncher: NSObject {
         
         window.addSubview(tableView)
         let height = CGFloat(viewModel.options.count * 60) + 100
+        self.tableViewHeight = height // class의 어디서나 테이블 뷰 높이를 엑세스할 수 있다.
         tableView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height)
         
         // Sheet가 올라오고 내려감을 구현
         UIView.animate(withDuration: 0.5) {
             self.blackView.alpha = 1
-            self.tableView.frame.origin.y -= height // 높이가 위로 height만큼 올라감
+           // self.tableView.frame.origin.y -= height // 높이가 위로 height만큼 올라감
+            self.showTableView(true)
         }
     }
     
@@ -118,7 +134,6 @@ extension ActionSheetLauncher: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuserIdentifier, for: indexPath) as! ActionSheetCell
         
-        // 3
         cell.option = viewModel.options[indexPath.row]
         return cell
     }
@@ -133,5 +148,18 @@ extension ActionSheetLauncher: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 60
+    }
+    
+    // 2. 기능 구현
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let option = viewModel.options[indexPath.row]
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.blackView.alpha = 0
+            self.showTableView(false)
+        }) { _ in
+            // 3. delegate 연결 -> 창이 사라지면 delegate 기능 실행
+            self.delegate?.didSelect(option: option)
+        }
     }
 }

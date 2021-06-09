@@ -15,7 +15,8 @@ class TweetController: UICollectionViewController {
     // MARK: - Properties
     
     private let tweet: Tweet
-    private let actionSheetLauncher: ActionSheetLauncher
+    // 여기서 초기화하지않는다 (보여달라고 요청할 때만 초기화) -> 다른 것을 전달해야하기 때문
+    private var actionSheetLauncher: ActionSheetLauncher!
     private var replies = [Tweet]() {
         didSet { collectionView.reloadData() }
     }
@@ -24,7 +25,6 @@ class TweetController: UICollectionViewController {
     
     init(tweet: Tweet) {
         self.tweet = tweet
-        self.actionSheetLauncher = ActionSheetLauncher(user: tweet.user)
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
     
@@ -57,6 +57,13 @@ class TweetController: UICollectionViewController {
         collectionView.register(TweetHeader.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: headerIdentifier)
+    }
+    
+    fileprivate func showActionSheet(forUser user: User) {
+        actionSheetLauncher = ActionSheetLauncher(user: user)
+        // 5 ActionSheetLauncherDelegate 연결
+        actionSheetLauncher.delegate = self
+        actionSheetLauncher.show()
     }
 }
 
@@ -102,9 +109,28 @@ extension TweetController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+    // MARK: - TweetHeaderDelegate
 
 extension TweetController: TweetHeaderDelegate {
     func showActionSheet() {
-        actionSheetLauncher.show()
+        // 1. follow, unfollow (여기서 초기화) -> follow 되있는지 text로만 확인, 실행은 didselect에서
+        if tweet.user.isCurrentUser {
+            showActionSheet(forUser: tweet.user)
+        } else {
+            UserService.shared.checkIfUserIsFollowed(uid: tweet.user.uid) { isFollowed in
+                var user = self.tweet.user
+                user.isFollowed = isFollowed
+                
+                self.showActionSheet(forUser: user)
+            }
+        }
+    }
+}
+
+    // MARK: - ActionSheetLauncherDelegate
+// 4
+extension TweetController: ActionSheetLauncherDelegate {
+    func didSelect(option: ActionSheetOptions) {
+        print("\(option.description)")
     }
 }

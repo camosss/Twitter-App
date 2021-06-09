@@ -11,7 +11,7 @@ class ActionSheetCell: UITableViewCell {
     
     // MARK: - Properties
     
-    // 2. 셀의 text를 채운다
+    // 셀의 text를 채운다
     var option: ActionSheetOptions? {
         didSet { configure() }
     }
