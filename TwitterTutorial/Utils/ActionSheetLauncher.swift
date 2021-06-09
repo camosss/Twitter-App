@@ -28,6 +28,28 @@ class ActionSheetLauncher: NSObject {
         return view
     }()
     
+    private lazy var footerView: UIView = {
+        let view = UIView()
+        
+        view.addSubview(cancelButton)
+        cancelButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        cancelButton.anchor(left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 12, paddingRight: 12)
+        cancelButton.centerY(inView: view)
+        cancelButton.layer.cornerRadius = 50 / 2
+        
+        return view
+    }()
+    
+    private lazy var cancelButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Cancel", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .systemGroupedBackground
+        button.addTarget(self, action: #selector(handleDismissal), for: .touchUpInside)
+        return button
+    }()
+    
     // MARK: - Lifecycle
     
     init(user: User) {
@@ -52,7 +74,7 @@ class ActionSheetLauncher: NSObject {
     
     // actionSheet 보이기
     func show() {
-        print("DEBUG: Show action sheet for user \(user.username)")
+//        print("DEBUG: Show action sheet for user \(user.username)")
         
         guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
         self.window = window
@@ -61,17 +83,18 @@ class ActionSheetLauncher: NSObject {
         blackView.frame = window.frame
         
         window.addSubview(tableView)
-        tableView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: 300)
+        let height = CGFloat(3 * 60) + 100
+        tableView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height)
         
         // Sheet가 올라오고 내려감을 구현
         UIView.animate(withDuration: 0.5) {
             self.blackView.alpha = 1
-            self.tableView.frame.origin.y -= 300 // 높이가 위로 300만큼 올라감
+            self.tableView.frame.origin.y -= height // 높이가 위로 height만큼 올라감
         }
     }
     
     func configureTableView() {
-        tableView.backgroundColor = .twitterBlue
+        tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = 60
@@ -79,7 +102,7 @@ class ActionSheetLauncher: NSObject {
         tableView.layer.cornerRadius = 5
         tableView.isScrollEnabled = false
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuserIdentifier)
+        tableView.register(ActionSheetCell.self, forCellReuseIdentifier: reuserIdentifier)
     }
 }
 
@@ -91,7 +114,7 @@ extension ActionSheetLauncher: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuserIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuserIdentifier, for: indexPath) as! ActionSheetCell
         return cell
     }
 }
@@ -99,5 +122,11 @@ extension ActionSheetLauncher: UITableViewDataSource {
     // MARK: - UITableViewDelegate
 
 extension ActionSheetLauncher: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return footerView
+    }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 60
+    }
 }
