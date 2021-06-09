@@ -7,13 +7,18 @@
 
 import UIKit
 
+protocol TweetHeaderDelegate: class {
+    func showActionSheet()
+}
+
 class TweetHeader: UICollectionReusableView {
     
     // MARK: - Properties
-    // 1. didSet 호출해서 configure 함수 구현
     var tweet: Tweet? {
         didSet { configure() }
     }
+    
+    weak var delegate: TweetHeaderDelegate?
     
     private lazy var profileImageView: UIImageView = {
         let iv = UIImageView()
@@ -170,7 +175,7 @@ class TweetHeader: UICollectionReusableView {
     // MARK: - Actions
     
     @objc func showActionSheet() {
-        print("DEBUG: handle show action sheet")
+        delegate?.showActionSheet()
     }
     
     @objc func handleProfileImageTapped() {
