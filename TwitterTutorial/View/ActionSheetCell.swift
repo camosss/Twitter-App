@@ -11,6 +11,11 @@ class ActionSheetCell: UITableViewCell {
     
     // MARK: - Properties
     
+    // 2. 셀의 text를 채운다
+    var option: ActionSheetOptions? {
+        didSet { configure() }
+    }
+    
     private let optionImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
@@ -43,6 +48,12 @@ class ActionSheetCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Helpers
+    
+    func configure() {
+        titleLabel.text = option?.description
     }
     
 }
