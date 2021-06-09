@@ -61,7 +61,7 @@ class TweetController: UICollectionViewController {
     
     fileprivate func showActionSheet(forUser user: User) {
         actionSheetLauncher = ActionSheetLauncher(user: user)
-        // 5 ActionSheetLauncherDelegate 연결
+        // ActionSheetLauncherDelegate 연결
         actionSheetLauncher.delegate = self
         actionSheetLauncher.show()
     }
@@ -113,7 +113,7 @@ extension TweetController: UICollectionViewDelegateFlowLayout {
 
 extension TweetController: TweetHeaderDelegate {
     func showActionSheet() {
-        // 1. follow, unfollow (여기서 초기화) -> follow 되있는지 text로만 확인, 실행은 didselect에서
+        // follow, unfollow (여기서 초기화) -> follow 되있는지 text로만 확인, 실행은 didselect에서
         if tweet.user.isCurrentUser {
             showActionSheet(forUser: tweet.user)
         } else {
@@ -128,9 +128,22 @@ extension TweetController: TweetHeaderDelegate {
 }
 
     // MARK: - ActionSheetLauncherDelegate
-// 4
+
 extension TweetController: ActionSheetLauncherDelegate {
     func didSelect(option: ActionSheetOptions) {
-        print("\(option.description)")
+        switch option {
+        case .follow(let user):
+            UserService.shared.followUser(uid: user.uid) { err, ref in
+                print("DEBUG: Did follow user \(user.username)")
+            }
+        case .unfollow(let user):
+            UserService.shared.unfollowUser(uid: user.uid) { err, ref in
+                print("DEBUG: Did unfollow user \(user.username)")
+            }
+        case .report:
+            print("DEBUG: Report tweet")
+        case .delete:
+            print("DEBUG: Delete tweet")
+        }
     }
 }

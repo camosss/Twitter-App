@@ -150,7 +150,6 @@ extension ActionSheetLauncher: UITableViewDelegate {
         return 60
     }
     
-    // 2. 기능 구현
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let option = viewModel.options[indexPath.row]
         
@@ -158,7 +157,7 @@ extension ActionSheetLauncher: UITableViewDelegate {
             self.blackView.alpha = 0
             self.showTableView(false)
         }) { _ in
-            // 3. delegate 연결 -> 창이 사라지면 delegate 기능 실행
+            // delegate 연결 -> 창이 사라지면 delegate 기능 실행
             self.delegate?.didSelect(option: option)
         }
     }
