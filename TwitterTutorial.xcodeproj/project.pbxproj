@@ -40,6 +40,7 @@
 		B45023BC2654A95700495C35 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45023BB2654A95700495C35 /* AuthService.swift */; };
 		B45023BF2654AD8300495C35 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45023BE2654AD8300495C35 /* UserService.swift */; };
 		B45023C22654ADAF00495C35 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45023C12654ADAF00495C35 /* User.swift */; };
+		B45BF76C267345C4003DA539 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45BF76B267345C4003DA539 /* Notification.swift */; };
 		B4680C6B2670A3C9007E6C74 /* ActionSheetLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4680C6A2670A3C9007E6C74 /* ActionSheetLauncher.swift */; };
 		B4680C6D2670AC8D007E6C74 /* ActionSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4680C6C2670AC8D007E6C74 /* ActionSheetCell.swift */; };
 		B4680C6F2670B7AA007E6C74 /* ActionSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4680C6E2670B7AA007E6C74 /* ActionSheetViewModel.swift */; };
@@ -83,6 +84,7 @@
 		B45023BB2654A95700495C35 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		B45023BE2654AD8300495C35 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		B45023C12654ADAF00495C35 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B45BF76B267345C4003DA539 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		B4680C6A2670A3C9007E6C74 /* ActionSheetLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetLauncher.swift; sourceTree = "<group>"; };
 		B4680C6C2670AC8D007E6C74 /* ActionSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetCell.swift; sourceTree = "<group>"; };
 		B4680C6E2670B7AA007E6C74 /* ActionSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetViewModel.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			children = (
 				B45023C12654ADAF00495C35 /* User.swift */,
 				B41EC72D26575B0C00C1088A /* Tweet.swift */,
+				B45BF76B267345C4003DA539 /* Notification.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				B422516A2658F98C00AC3D6B /* ProfileHeader.swift in Sources */,
 				B42B0DE9265B7B270082D573 /* ProfileFilterViewModel.swift in Sources */,
 				B4088D2C265259AE00E97C9B /* Extensions.swift in Sources */,
+				B45BF76C267345C4003DA539 /* Notification.swift in Sources */,
 				B42251622658ECFB00AC3D6B /* ProfileController.swift in Sources */,
 				B4088D3126526F0400E97C9B /* LoginController.swift in Sources */,
 				B4088D232652541B00E97C9B /* ExploreController.swift in Sources */,
