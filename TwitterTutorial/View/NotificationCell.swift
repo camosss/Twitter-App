@@ -12,7 +12,7 @@ class NotificationCell: UITableViewCell {
     // MARK: - Properties
     
     var notification: Notification? {
-        didSet { configure() }
+        didSet { configure() } // 4 설정될때마다 configure 호출
     }
     
     private lazy var profileImageView: UIImageView = {
@@ -63,7 +63,7 @@ class NotificationCell: UITableViewCell {
     
     // MARK: - Helpers
     
-    func configure() {
+    func configure() {// 5 viewModel을 사용하여 속성 설정
         guard let notification = notification else { return }
         let viewmodel = NotificationViewModel(notification: notification)
         

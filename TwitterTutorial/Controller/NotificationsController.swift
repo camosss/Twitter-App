@@ -13,8 +13,8 @@ class NotificationsController: UITableViewController {
     
     // MARK: - Properties
     
-    private var notificatioins = [Notification]() {
-        didSet { tableView.reloadData() }
+    private var notifications = [Notification]() {
+        didSet { tableView.reloadData() } // 2 리로드
     }
     
     // MARK: - Lifecycle
@@ -27,9 +27,9 @@ class NotificationsController: UITableViewController {
     
     // MARK: - API
     
-    func fetchNotifications() {
-        NotificationService.shared.fetchNotifications { notificatioins in
-            self.notificatioins = notificatioins
+    func fetchNotifications() {                     // 1 알림을 돌려줌
+        NotificationService.shared.fetchNotifications { notifications in
+            self.notifications = notifications
         }
     }
     
@@ -45,15 +45,15 @@ class NotificationsController: UITableViewController {
     }
 
 }
-
+// 3 재구성
 extension NotificationsController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return notificatioins.count
+        return notifications.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! NotificationCell
-        cell.notification = notificatioins[indexPath.row]
+        cell.notification = notifications[indexPath.row]
         return cell
     }
 }
