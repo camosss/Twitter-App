@@ -33,8 +33,11 @@ class NotificationsController: UITableViewController {
     
     // MARK: - API
     
-    func fetchNotifications() {                     // 알림을 돌려줌
+    func fetchNotifications() {
+        refreshControl?.beginRefreshing()
+        
         NotificationService.shared.fetchNotifications { notifications in
+            self.refreshControl?.endRefreshing()
             self.notifications = notifications
             self.checkIfUserFollowed(notifications: notifications)
         }
@@ -61,8 +64,18 @@ class NotificationsController: UITableViewController {
         tableView.register(NotificationCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.rowHeight = 60
         tableView.separatorStyle = .none
+        
+        
+        let refreshControl = UIRefreshControl()
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
     }
-
+    
+    // MARK: - Actions
+    
+    @objc func handleRefresh() {
+        fetchNotifications()
+    }
 }
 
     // MARK: - UITableViewDataSource
