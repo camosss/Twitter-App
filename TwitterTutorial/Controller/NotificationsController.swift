@@ -36,14 +36,17 @@ class NotificationsController: UITableViewController {
     func fetchNotifications() {                     // 알림을 돌려줌
         NotificationService.shared.fetchNotifications { notifications in
             self.notifications = notifications
-            
-            for (index, notification) in notifications.enumerated() {
-                if case .follow = notification.type {
-                    let user = notification.user
-                    
-                    UserService.shared.checkIfUserIsFollowed(uid: user.uid) { isFollowed in
-                        self.notifications[index].user.isFollowed = isFollowed
-                    }
+            self.checkIfUserFollowed(notifications: notifications)
+        }
+    }
+    
+    func checkIfUserFollowed(notifications: [Notification]) {
+        for (index, notification) in notifications.enumerated() {
+            if case .follow = notification.type {
+                let user = notification.user
+                
+                UserService.shared.checkIfUserIsFollowed(uid: user.uid) { isFollowed in
+                    self.notifications[index].user.isFollowed = isFollowed
                 }
             }
         }
@@ -102,6 +105,16 @@ extension NotificationsController: NotificationCellDelegate {
     }
     
     func handleFollowTapped(_ cell: NotificationCell) {
-        print("follow")
+        guard let user = cell.notification?.user else { return }
+        
+        if user.isFollowed {
+            UserService.shared.unfollowUser(uid: user.uid) { err, ref in
+                cell.notification?.user.isFollowed = false
+            }
+        } else {
+            UserService.shared.followUser(uid: user.uid) { err, ref in
+                cell.notification?.user.isFollowed = true
+            }
+        }
     }
 }
