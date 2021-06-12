@@ -48,6 +48,15 @@ struct NotificationViewModel {
         return user.profileImageUrl
     }
     
+    // follow 관련 알림셀만 followButton이 뜨도록
+    var shouldHideFollowButton: Bool {
+        return type != .follow
+    }
+    
+    var followButtonText: String {
+        return user.isFollowed ? "Following" : "Follow"
+    }
+    
     init(notification: Notification) {
         self.notification = notification
         self.type = notification.type
