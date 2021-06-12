@@ -8,8 +8,8 @@
 import UIKit
 
 protocol NotificationCellDelegate: class {
-    func handleProfileImageTapped(_ cell: NotificationCell)
-    func handleFollowTapped(_ cell: NotificationCell)
+    func didTapProfileImage(_ cell: NotificationCell)
+    func didTapFollowButton(_ cell: NotificationCell)
 }
 
 class NotificationCell: UITableViewCell {
@@ -64,11 +64,11 @@ class NotificationCell: UITableViewCell {
         stack.spacing = 8
         stack.alignment = .center
         
-        addSubview(stack)
+        contentView.addSubview(stack)
         stack.centerY(inView: self, leftAnchor: leftAnchor, paddingLeft: 12)
         stack.anchor(right: rightAnchor, paddingRight: 12)
         
-        addSubview(followButton)
+        contentView.addSubview(followButton)
         followButton.centerY(inView: self)
         followButton.setDimensions(width: 92, height: 32)
         followButton.layer.cornerRadius = 32 / 2
@@ -82,11 +82,11 @@ class NotificationCell: UITableViewCell {
     // MARK: - Actions
     
     @objc func handleFollowTapped() {
-        delegate?.handleFollowTapped(self)
+        delegate?.didTapFollowButton(self)
     }
     
     @objc func handleProfileImageTapped() {
-        delegate?.handleProfileImageTapped(self)
+        delegate?.didTapProfileImage(self)
     }
     
     // MARK: - Helpers

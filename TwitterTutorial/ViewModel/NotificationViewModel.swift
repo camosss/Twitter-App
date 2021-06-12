@@ -9,7 +9,7 @@ import UIKit
 
 struct NotificationViewModel {
     
-    private let notification: Notification
+    var notification: Notification
     private let type: NotificationType
     private let user: User
     
@@ -44,18 +44,12 @@ struct NotificationViewModel {
         return attributedText
     }
     
-    var profileImageUrl: URL? {
-        return user.profileImageUrl
-    }
+    var profileImageUrl: URL? { return user.profileImageUrl }
     
     // follow 관련 알림셀만 followButton이 뜨도록
-    var shouldHideFollowButton: Bool {
-        return type != .follow
-    }
+    var shouldHideFollowButton: Bool { return type != .follow }
     
-    var followButtonText: String {
-        return user.isFollowed ? "Following" : "Follow"
-    }
+    var followButtonText: String { return user.isFollowed ? "Following" : "Follow" }
     
     init(notification: Notification) {
         self.notification = notification

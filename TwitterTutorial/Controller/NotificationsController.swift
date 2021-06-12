@@ -39,11 +39,11 @@ class NotificationsController: UITableViewController {
         NotificationService.shared.fetchNotifications { notifications in
             self.refreshControl?.endRefreshing()
             self.notifications = notifications
-            self.checkIfUserFollowed(notifications: notifications)
+            self.checkIfUserFollowed(notifications)
         }
     }
     
-    func checkIfUserFollowed(notifications: [Notification]) {
+    func checkIfUserFollowed(_ notifications: [Notification]) {
         for (index, notification) in notifications.enumerated() {
             if case .follow = notification.type {
                 let user = notification.user
@@ -110,14 +110,14 @@ extension NotificationsController {
     // MARK: - NotificationCellDelegate
 
 extension NotificationsController: NotificationCellDelegate {
-    func handleProfileImageTapped(_ cell: NotificationCell) {
+    func didTapProfileImage(_ cell: NotificationCell) {
         guard let user = cell.notification?.user else { return }
         
         let controller = ProfileController(user: user)
         navigationController?.pushViewController(controller, animated: true)
     }
     
-    func handleFollowTapped(_ cell: NotificationCell) {
+    func didTapFollowButton(_ cell: NotificationCell) {
         guard let user = cell.notification?.user else { return }
         
         if user.isFollowed {
