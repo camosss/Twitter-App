@@ -7,12 +7,18 @@
 
 import UIKit
 
+protocol NotificationCellDelegate: class {
+    func didTapProfileImage(_ cell: NotificationCell)
+}
+
 class NotificationCell: UITableViewCell {
     
     // MARK: - Properties
     
+    weak var delegate: NotificationCellDelegate?
+    
     var notification: Notification? {
-        didSet { configure() } // 4 설정될때마다 configure 호출
+        didSet { configure() } // 설정될때마다 configure 호출
     }
     
     private lazy var profileImageView: UIImageView = {
@@ -58,12 +64,12 @@ class NotificationCell: UITableViewCell {
     // MARK: - Actions
     
     @objc func handleProfileImageTapped() {
-        
+        delegate?.didTapProfileImage(self)
     }
     
     // MARK: - Helpers
     
-    func configure() {// 5 viewModel을 사용하여 속성 설정
+    func configure() {// viewModel을 사용하여 속성 설정
         guard let notification = notification else { return }
         let viewmodel = NotificationViewModel(notification: notification)
         
