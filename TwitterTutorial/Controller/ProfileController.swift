@@ -48,6 +48,7 @@ class ProfileController: UICollectionViewController {
         super.viewDidLoad()
         configureCollectionView()
         fetchTweets()
+        fetchLikedTweets()
         checkIfUserIsFollowed()
         fetchUserStats()
     }
@@ -64,7 +65,13 @@ class ProfileController: UICollectionViewController {
     func fetchTweets() {
         TweetService.shared.fetchTweets(forUser: user) { tweets in
             self.tweets = tweets
-            self.collectionView.reloadData()
+            self.collectionView.reloadData() // 초기 데이터를 가져오기 때문에 여기에서만 reload
+        }
+    }
+    
+    func fetchLikedTweets() {
+        TweetService.shared.fetchLikes(forUser: user) { tweets in
+            self.likedTweets = tweets
         }
     }
     
