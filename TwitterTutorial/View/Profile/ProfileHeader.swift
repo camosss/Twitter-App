@@ -10,6 +10,7 @@ import UIKit
 protocol ProfileHeaderDelegate: class {
     func handleDismiss()
     func handleEditProfileFollow(_ header: ProfileHeader)
+    func didSelet(filter: ProfileFilterOptions)
 }
 
 class ProfileHeader: UICollectionReusableView {
@@ -188,7 +189,11 @@ class ProfileHeader: UICollectionReusableView {
     // MARK: - ProfileFilterViewDelegate
 
 extension ProfileHeader: ProfileFilterViewDelegate {
-    func filterView(_ view: ProfileFilterView, didSelect indexPath: IndexPath) {
+    func filterView(_ view: ProfileFilterView, didSelect index: Int) {
+        guard let filter = ProfileFilterOptions(rawValue: index) else { return }
         
+        print("DEBUG: 2. 필터를 사용하여 헤더에서 컨트롤러로 작업을 위임 \(filter.description)")
+        
+        delegate?.didSelet(filter: filter)
     }
 }
