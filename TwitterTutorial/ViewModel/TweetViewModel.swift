@@ -9,6 +9,8 @@ import UIKit
 
 struct TweetViewModel {
     
+    // MARK: - Properties
+    
     let tweet: Tweet
     let user: User
     
@@ -64,6 +66,17 @@ struct TweetViewModel {
         return UIImage(named: imageName)!
     }
     
+    var shouldHideReplyLabel: Bool {
+        return !tweet.isReply // tweet에 reply에서만 나타나도록(shouldHide -> !(false))
+    }
+    
+    var replyText: String? {
+        guard let replyingToUsername = tweet.replyingTo else { return nil }
+        return "→ replying to @\(replyingToUsername)"
+    }
+    
+    // MARK: - Lifecycle
+    
     init(tweet: Tweet) {
         self.tweet = tweet
         self.user = tweet.user
@@ -78,6 +91,8 @@ struct TweetViewModel {
                                                      .foregroundColor: UIColor.lightGray]))
         return attributedTitle
     }
+    
+    // MARK: - Helpers
     
     // feed에 동적인 caption을 위한 함수
     func size(forWidth width: CGFloat) -> CGSize {
