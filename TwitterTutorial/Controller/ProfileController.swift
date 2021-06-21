@@ -17,7 +17,7 @@ class ProfileController: UICollectionViewController {
     private var user: User
                                 // tweets에서 시작하기 때문에 기본값으로 준다.
     private var selectedFilter: ProfileFilterOptions = .tweets {
-        didSet { collectionView.reloadData() }
+        didSet { collectionView.reloadData() } // 선택된 필터로 reload
     }
     
     // 프로필에서 tweet을 배열로 채워야 함
