@@ -37,16 +37,33 @@ struct TweetService {
         }
     }
     
+    // 자신이 팔로우하는 유저의 Tweet만 볼 수 있게
     func fetchTweets(completion: @escaping([Tweet]) -> Void) {
         var tweets = [Tweet]()
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
         
-        REF_TWEETS.observe(.childAdded) { snapshot in
-            guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
-            guard let uid = dictionary["uid"] as? String else { return }
+        REF_USER_FOLLOWING.child(currentUid).observe(.childAdded) { snapshot in
+            // snapshot -> userID
+            let followingUid = snapshot.key
+            
+            // 팔로우한 유저의 트윗
+            REF_USER_TWEETS.child(followingUid).observe(.childAdded) { snapshot in
+                // snapshot -> TweetID
+                let tweetID = snapshot.key
+                
+                self.fetchTweet(withTweetID: tweetID) { tweet in
+                    tweets.append(tweet)
+                    completion(tweets)
+                }
+            }
+        }
+        
+        // 로그인한 유저의 Tweet
+        REF_USER_TWEETS.child(currentUid).observe(.childAdded) { snapshot in
+            // snapshot -> TweetID
             let tweetID = snapshot.key
             
-            UserService.shared.fetchUser(uid: uid) { user in
-                let tweet = Tweet(user: user, tweetID: tweetID, dictionary: dictionary)
+            self.fetchTweet(withTweetID: tweetID) { tweet in
                 tweets.append(tweet)
                 completion(tweets)
             }
