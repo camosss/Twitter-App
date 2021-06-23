@@ -24,7 +24,7 @@
 		B4088D37265277BC00E97C9B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4088D36265277BC00E97C9B /* Utilities.swift */; };
 		B40DB03D26541C540009C6FC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40DB03C26541C540009C6FC /* Constants.swift */; };
 		B4108DD12656249700D0A5E9 /* UploadTweetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4108DD02656249700D0A5E9 /* UploadTweetController.swift */; };
-		B4108DD426563CE100D0A5E9 /* CaptionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4108DD326563CE100D0A5E9 /* CaptionTextView.swift */; };
+		B4108DD426563CE100D0A5E9 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4108DD326563CE100D0A5E9 /* InputTextView.swift */; };
 		B4108DD7265645B200D0A5E9 /* TweetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4108DD6265645B200D0A5E9 /* TweetService.swift */; };
 		B41EC72E26575B0C00C1088A /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41EC72D26575B0C00C1088A /* Tweet.swift */; };
 		B41EC731265776BE00C1088A /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41EC730265776BE00C1088A /* TweetCell.swift */; };
@@ -75,7 +75,7 @@
 		B4088D36265277BC00E97C9B /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		B40DB03C26541C540009C6FC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B4108DD02656249700D0A5E9 /* UploadTweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetController.swift; sourceTree = "<group>"; };
-		B4108DD326563CE100D0A5E9 /* CaptionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionTextView.swift; sourceTree = "<group>"; };
+		B4108DD326563CE100D0A5E9 /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		B4108DD6265645B200D0A5E9 /* TweetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetService.swift; sourceTree = "<group>"; };
 		B41EC72D26575B0C00C1088A /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		B41EC730265776BE00C1088A /* TweetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
@@ -222,13 +222,12 @@
 			isa = PBXGroup;
 			children = (
 				B42B0DEB265B91190082D573 /* Profile */,
-				B4108DD326563CE100D0A5E9 /* CaptionTextView.swift */,
+				B4108DD326563CE100D0A5E9 /* InputTextView.swift */,
 				B41EC730265776BE00C1088A /* TweetCell.swift */,
 				B4F2E2F82660E211008C1637 /* UserCell.swift */,
 				B447979A2665EFEB0089B38F /* TweetHeader.swift */,
 				B4680C6C2670AC8D007E6C74 /* ActionSheetCell.swift */,
 				B45BF76F26735461003DA539 /* NotificationCell.swift */,
-				B435EDA0268369FF00FA87AC /* EditProfileCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -259,6 +258,7 @@
 				B422516E26591D5700AC3D6B /* ProfileFilterView.swift */,
 				B422517126591F2F00AC3D6B /* ProfileFilterCell.swift */,
 				B435ED9C26835AC000FA87AC /* EditProfileHeader.swift */,
+				B435EDA0268369FF00FA87AC /* EditProfileCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -398,7 +398,7 @@
 				B4680C6D2670AC8D007E6C74 /* ActionSheetCell.swift in Sources */,
 				B45023C22654ADAF00495C35 /* User.swift in Sources */,
 				B4216274267462A300F112CD /* NotificationViewModel.swift in Sources */,
-				B4108DD426563CE100D0A5E9 /* CaptionTextView.swift in Sources */,
+				B4108DD426563CE100D0A5E9 /* InputTextView.swift in Sources */,
 				B44797992665ED1B0089B38F /* TweetController.swift in Sources */,
 				B422516F26591D5700AC3D6B /* ProfileFilterView.swift in Sources */,
 				B4AD0EE7266A2E5C00A8071B /* UploadTweetViewModel.swift in Sources */,

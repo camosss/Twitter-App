@@ -20,3 +20,22 @@ enum EditProfileOptions: Int, CaseIterable {
         }
     }
 }
+
+struct EditProfileViewModel {
+    
+    private let user: User
+    let option: EditProfileOptions
+    
+    var shouldHideTextField: Bool {
+        return option == .bio
+    }
+    
+    var shouldHideTextView: Bool {
+        return option != .bio
+    }
+    
+    init(user: User, option: EditProfileOptions) {
+        self.user = user
+        self.option = option
+    }
+}
