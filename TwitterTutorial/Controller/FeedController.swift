@@ -43,6 +43,11 @@ class FeedController: UICollectionViewController {
         fetchTweets()
     }
     
+    @objc func goProfile() {
+        let controller = ProfileController(user: user!)
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
     // MARK: - API
     
     func fetchTweets() {
@@ -90,16 +95,18 @@ class FeedController: UICollectionViewController {
     func configureLeftBarButton() {
         guard let user = user else { return }
         
-        let profileImageView = UIImageView()
+        let profileImageView = UIButton()
         profileImageView.setDimensions(width: 32, height: 32)
         profileImageView.layer.cornerRadius = 32 / 2
         profileImageView.layer.masksToBounds = true
+        profileImageView.addTarget(self, action: #selector(goProfile), for: .touchUpInside)
         
-        profileImageView.sd_setImage(with: user.profileImageUrl, completed: nil)
+        profileImageView.sd_setImage(with: user.profileImageUrl, for: .normal, completed: nil)
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImageView)
     }
 
+    
 }
 
     // MARK: - UICollectionViewDataSource
