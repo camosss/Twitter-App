@@ -7,6 +7,8 @@
 
 import UIKit
 
+private let reuseIdentifier = "EditProfileCell"
+
 class EditProfileController: UITableViewController {
     
     // MARK: - Properties
@@ -61,11 +63,36 @@ class EditProfileController: UITableViewController {
     func configureTableView() {
         tableView.tableHeaderView = headerView
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 180)
-        tableView.tableFooterView = UIView()
+        tableView.tableFooterView = UIView() // 선 없애고 view로
         
         headerView.delegate = self
+        
+        tableView.register(EditProfileCell.self, forCellReuseIdentifier: reuseIdentifier)
     }
 }
+
+    // MARK: - UITableViewDataSource
+
+extension EditProfileController {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return EditProfileOptions.allCases.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! EditProfileCell
+        return cell
+    }
+}
+
+// 각 옵션별 높이 지정
+extension EditProfileController {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let option = EditProfileOptions(rawValue: indexPath.row) else { return 0 }
+        return option == .bio ? 100 : 48
+    }
+}
+
+    // MARK: - EditProfileHeaderDelegate
 
 extension EditProfileController: EditProfileHeaderDelegate {
     func didTapChangeProfilePhoto() {
