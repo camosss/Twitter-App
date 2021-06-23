@@ -26,6 +26,18 @@ struct EditProfileViewModel {
     private let user: User
     let option: EditProfileOptions
     
+    var titleText: String {
+        return option.description
+    }
+    
+    var optionValue: String? {
+        switch option {
+        case .username: return user.username
+        case .fullname: return user.fullname
+        case .bio: return user.bio
+        }
+    }
+    
     var shouldHideTextField: Bool {
         return option == .bio
     }
@@ -39,3 +51,4 @@ struct EditProfileViewModel {
         self.option = option
     }
 }
+
