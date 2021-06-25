@@ -16,6 +16,12 @@ class EditProfileController: UITableViewController {
     private let user: User
     // lazy var - 초기화될 때까지 user와 함께 초기화를 기다린다 (지연 로딩)
     private lazy var headerView = EditProfileHeader(user: user)
+    private let imagePicker = UIImagePickerController()
+    
+    // 프로필 헤더의 이미지 변경
+    private var selectedImage: UIImage? {
+        didSet { headerView.profileImageView.image = selectedImage }
+    }
     
     // MARK: - Lifecycle
     
@@ -32,6 +38,7 @@ class EditProfileController: UITableViewController {
         super.viewDidLoad()
         configureNavigationBar()
         configureTableView()
+        configureImagePicker()
     }
     
     
@@ -69,6 +76,11 @@ class EditProfileController: UITableViewController {
         
         tableView.register(EditProfileCell.self, forCellReuseIdentifier: reuseIdentifier)
     }
+    
+    func configureImagePicker() {
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+    }
 }
 
     // MARK: - UITableViewDataSource
@@ -100,6 +112,18 @@ extension EditProfileController {
 
 extension EditProfileController: EditProfileHeaderDelegate {
     func didTapChangeProfilePhoto() {
-        print("tap")
+        present(imagePicker, animated: true, completion: nil)
+    }
+}
+
+
+extension EditProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        // image 등록
+        guard let image = info[.editedImage] as? UIImage else { return }
+        self.selectedImage = image
+        
+        dismiss(animated: true, completion: nil)
     }
 }
