@@ -13,7 +13,7 @@ class EditProfileController: UITableViewController {
     
     // MARK: - Properties
     
-    private let user: User
+    private var user: User
     // lazy var - 초기화될 때까지 user와 함께 초기화를 기다린다 (지연 로딩)
     private lazy var headerView = EditProfileHeader(user: user)
     private let imagePicker = UIImagePickerController()
@@ -93,6 +93,8 @@ extension EditProfileController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! EditProfileCell
         
+        cell.delegate = self
+        
         guard let option = EditProfileOptions(rawValue: indexPath.row) else { return cell }
         cell.viewModel = EditProfileViewModel(user: user, option: option)
         
@@ -116,6 +118,7 @@ extension EditProfileController: EditProfileHeaderDelegate {
     }
 }
 
+    // MARK: - UIImagePickerControllerDelegate
 
 extension EditProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -125,5 +128,24 @@ extension EditProfileController: UIImagePickerControllerDelegate, UINavigationCo
         self.selectedImage = image
         
         dismiss(animated: true, completion: nil)
+    }
+}
+
+    // MARK: - EditProfileCellDelegate
+
+extension EditProfileController: EditProfileCellDelegate {
+    func updateUserInfo(_ cell: EditProfileCell) {
+        guard let viewModel = cell.viewModel else { return }
+        
+        switch viewModel.option {
+        case .fullname:
+            guard let fullname = cell.infoTextField.text else { return }
+            user.fullname = fullname
+        case .username:
+            guard let username = cell.infoTextField.text else { return }
+            user.username = username
+        case .bio:
+            user.bio = cell.bioTextView.text
+        }
     }
 }
