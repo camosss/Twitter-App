@@ -9,6 +9,10 @@ import UIKit
 
 private let reuseIdentifier = "EditProfileCell"
 
+protocol EditProfileControllerDelegate: class {
+    func controller(_ controller: EditProfileController, wantsToUpdate user: User)
+}
+
 class EditProfileController: UITableViewController {
     
     // MARK: - Properties
@@ -20,6 +24,8 @@ class EditProfileController: UITableViewController {
     
     // 사용자의 정보 변경
     private var userInfoChanged = false
+    
+    weak var delegate: EditProfileControllerDelegate?
     
     // 프로필 헤더의 이미지 변경
     private var selectedImage: UIImage? {
@@ -59,7 +65,7 @@ class EditProfileController: UITableViewController {
     
     func updateUserData() {
         UserService.shared.saveUserData(user: user) { err, ref in
-            self.dismiss(animated: true, completion: nil)
+            self.delegate?.controller(self, wantsToUpdate: self.user)
         }
     }
     
