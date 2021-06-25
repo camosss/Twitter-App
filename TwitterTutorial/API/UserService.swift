@@ -73,6 +73,28 @@ struct UserService {
         }
     }
     
+    func updateProfileImage(image: UIImage, completion: @escaping(URL?) -> Void) {
+        // 1. 이미지를 JPEG 데이터로 변환한 다음
+        guard let imageData = image.jpegData(compressionQuality: 0.3) else { return }
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let filename = NSUUID().uuidString
+        let ref = STORAGE_PROFILE_IMAGES.child(filename)
+        
+        // 2. 이미지 데이터를 업로드하는 방법
+        ref.putData(imageData, metadata: nil) { meta, err in
+            ref.downloadURL { url, err in
+                // 프로필이미지 URL설정
+                guard let profileImageUrl = url?.absoluteString else { return }
+                let values = ["profileImageUrl": profileImageUrl]
+                
+                // 하위 값을 업데이트하고 프로필 이미지 URL을 사용하여 completion
+                REF_USERS.child(uid).updateChildValues(values) { err, ref in
+                    completion(url)
+                }
+            }
+        }
+    }
+    
     func saveUserData(user: User, completion: @escaping(DatabaseCompletion)) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         

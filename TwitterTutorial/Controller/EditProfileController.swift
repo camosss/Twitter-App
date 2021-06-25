@@ -25,6 +25,11 @@ class EditProfileController: UITableViewController {
     // 사용자의 정보 변경
     private var userInfoChanged = false
     
+    // 선택한 이미지에 값이 있으면 변경되었음을 의미
+    private var imageChanged: Bool {
+        return selectedImage != nil
+    }
+    
     weak var delegate: EditProfileControllerDelegate?
     
     // 프로필 헤더의 이미지 변경
@@ -58,13 +63,40 @@ class EditProfileController: UITableViewController {
     }
     
     @objc func handleDone() {
+        // 작업을 마치면 편집을 종료
+        view.endEditing(true)
+        // 2개 중 하나만 입력되어도 Done 활성화
+        guard imageChanged || userInfoChanged else { return }
         updateUserData()
     }
     
     // MARK: - API
     
     func updateUserData() {
-        UserService.shared.saveUserData(user: user) { err, ref in
+        
+        if imageChanged && !userInfoChanged {
+            updateProfileImage()
+        }
+        
+        if !imageChanged && userInfoChanged {
+            UserService.shared.saveUserData(user: user) { err, ref in
+                self.delegate?.controller(self, wantsToUpdate: self.user)
+            }
+        }
+        
+        if imageChanged && userInfoChanged {
+            UserService.shared.saveUserData(user: user) { err, ref in
+                self.updateProfileImage()
+            }
+        }
+    }
+    
+    func updateProfileImage() {
+        guard let image = selectedImage else { return }
+        
+        UserService.shared.updateProfileImage(image: image) { profileImageUrl in
+            self.user.profileImageUrl = profileImageUrl
+            // 사용자 업데이트
             self.delegate?.controller(self, wantsToUpdate: self.user)
         }
     }
@@ -81,7 +113,6 @@ class EditProfileController: UITableViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleCancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(handleDone))
-        navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     func configureTableView() {

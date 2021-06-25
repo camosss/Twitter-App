@@ -109,7 +109,7 @@ class ProfileController: UICollectionViewController {
         collectionView.register(TweetCell.self, forCellWithReuseIdentifier: reuserIdentifier)
         collectionView.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
         
-        // tabBar를 높이고, collectionView에 내용을 넣는ㄷ
+        // tabBar를 높이고, collectionView에 내용을 넣는다
         guard let tabHeight = tabBarController?.tabBar.frame.height else { return }
         collectionView.contentInset.bottom = tabHeight
     }
