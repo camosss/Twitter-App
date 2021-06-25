@@ -18,6 +18,9 @@ class EditProfileController: UITableViewController {
     private lazy var headerView = EditProfileHeader(user: user)
     private let imagePicker = UIImagePickerController()
     
+    // 사용자의 정보 변경
+    private var userInfoChanged = false
+    
     // 프로필 헤더의 이미지 변경
     private var selectedImage: UIImage? {
         didSet { headerView.profileImageView.image = selectedImage }
@@ -49,7 +52,15 @@ class EditProfileController: UITableViewController {
     }
     
     @objc func handleDone() {
-        print("Done")
+        updateUserData()
+    }
+    
+    // MARK: - API
+    
+    func updateUserData() {
+        UserService.shared.saveUserData(user: user) { err, ref in
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     // MARK: - Helpers
@@ -102,6 +113,8 @@ extension EditProfileController {
     }
 }
 
+    // MARK: - UITableViewDelegate
+
 // 각 옵션별 높이 지정
 extension EditProfileController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -136,6 +149,10 @@ extension EditProfileController: UIImagePickerControllerDelegate, UINavigationCo
 extension EditProfileController: EditProfileCellDelegate {
     func updateUserInfo(_ cell: EditProfileCell) {
         guard let viewModel = cell.viewModel else { return }
+        
+        // update user info 함수의 사용이 언제 호출되는지
+        userInfoChanged = true
+        navigationItem.rightBarButtonItem?.isEnabled = true // Done 활성화
         
         switch viewModel.option {
         case .fullname:
