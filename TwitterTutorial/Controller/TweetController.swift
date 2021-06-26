@@ -120,6 +120,14 @@ extension TweetController: UICollectionViewDelegateFlowLayout {
     // MARK: - TweetHeaderDelegate
 
 extension TweetController: TweetHeaderDelegate {
+    func handleFetchUser(withUsername username: String) {
+        UserService.shared.fetchUser(withUsername: username) { user in
+//            print("DEBUG: user is \(user.username)")
+            let controller = ProfileController(user: user)
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+    
     func showActionSheet() {
         // follow, unfollow (여기서 초기화) -> follow 되있는지 text로만 확인, 실행은 didselect에서
         if tweet.user.isCurrentUser {

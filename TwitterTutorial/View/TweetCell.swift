@@ -181,7 +181,6 @@ class TweetCell: UICollectionViewCell {
         replyLabel.text = viewModel.replyText
     }
     
-    // 2. delegate
     func configureMentionHandler() {
         captionLabel.handleMentionTap { username in
             self.delegate?.handleFetchUser(withUsername: username)
