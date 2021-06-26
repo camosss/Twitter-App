@@ -144,6 +144,16 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
     // MARK: - TweetCellDelegate
 
 extension FeedController: TweetCellDelegate {
+    // 3. 사용자ID를 가져와서 프로필로 이동
+    func handleFetchUser(withUsername username: String) {
+        UserService.shared.fetchUser(withUsername: username) { user in
+//            print("DEBUG: user is \(user.username)")
+            let controller = ProfileController(user: user)
+            self.navigationController?.pushViewController(controller, animated: true)
+            
+        }
+    }
+    
     func handleLikeTapped(_ cell: TweetCell) {
         guard let tweet = cell.tweet else { return }
         

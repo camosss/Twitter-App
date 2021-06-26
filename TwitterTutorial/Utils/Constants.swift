@@ -21,4 +21,6 @@ let REF_USER_LIKES = DB_REF.child("user-likes")
 let REF_TWEET_LIKES = DB_REF.child("tweet-likes")
 let REF_NOTIFICATIONS = DB_REF.child("notifications")
 let REF_USER_REPLIES = DB_REF.child("user-replies")
+let REF_USER_USERNAMES = DB_REF.child("user-usernames") // firebase에 수동으로 추가
+
 
