@@ -20,6 +20,7 @@ class EditProfileController: UITableViewController {
     private var user: User
     // lazy var - 초기화될 때까지 user와 함께 초기화를 기다린다 (지연 로딩)
     private lazy var headerView = EditProfileHeader(user: user)
+    private let footerView = EditProfileFooter()
     private let imagePicker = UIImagePickerController()
     
     // 사용자의 정보 변경
@@ -118,9 +119,12 @@ class EditProfileController: UITableViewController {
     func configureTableView() {
         tableView.tableHeaderView = headerView
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 180)
-        tableView.tableFooterView = UIView() // 선 없애고 view로
+        
+        footerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
+        tableView.tableFooterView = footerView
         
         headerView.delegate = self
+        footerView.delegate = self
         
         tableView.register(EditProfileCell.self, forCellReuseIdentifier: reuseIdentifier)
     }
@@ -201,5 +205,13 @@ extension EditProfileController: EditProfileCellDelegate {
         case .bio:
             user.bio = cell.bioTextView.text
         }
+    }
+}
+
+    // MARK: - EditProfileFooterDelegate
+
+extension EditProfileController: EditProfileFooterDelegate {
+    func handleLogout() {
+        print("DEBUG: logout")
     }
 }
