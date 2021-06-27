@@ -44,6 +44,9 @@ class NotificationsController: UITableViewController {
     }
     
     func checkIfUserFollowed(_ notifications: [Notification]) {
+        // 진행되기 전에 실제로 알림이 포함되어 있는지 확인
+        guard !notifications.isEmpty else { return }
+        
         for (index, notification) in notifications.enumerated() {
             if case .follow = notification.type {
                 let user = notification.user
