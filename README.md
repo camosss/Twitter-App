@@ -1,4 +1,4 @@
-[Udemy] Stephan Dowless "Twitter" Clone Coding
+# [Udemy] Stephan Dowless "Twitter" Clone Coding
 
 - Build a Twitter clone with iOS 13, Swift 5 & Firebase without the use of storyboards
 - Build a fully functioning social network
