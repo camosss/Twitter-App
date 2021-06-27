@@ -44,7 +44,8 @@ class FeedController: UICollectionViewController {
     }
     
     @objc func goProfile() {
-        let controller = ProfileController(user: user!)
+        guard let user = user else { return }
+        let controller = ProfileController(user: user)
         navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -95,13 +96,16 @@ class FeedController: UICollectionViewController {
     func configureLeftBarButton() {
         guard let user = user else { return }
         
-        let profileImageView = UIButton()
+        let profileImageView = UIImageView()
         profileImageView.setDimensions(width: 32, height: 32)
         profileImageView.layer.cornerRadius = 32 / 2
         profileImageView.layer.masksToBounds = true
-        profileImageView.addTarget(self, action: #selector(goProfile), for: .touchUpInside)
+        profileImageView.isUserInteractionEnabled = true
         
-        profileImageView.sd_setImage(with: user.profileImageUrl, for: .normal, completed: nil)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(goProfile))
+        profileImageView.addGestureRecognizer(tap)
+        
+        profileImageView.sd_setImage(with: user.profileImageUrl, completed: nil)
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImageView)
     }
