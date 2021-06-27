@@ -10,7 +10,7 @@ import UIKit
 private let reuseIdentifier = "ProfileFilterCell"
 
 
-protocol ProfileFilterViewDelegate: class {
+protocol ProfileFilterViewDelegate: AnyObject {
     func filterView(_ view: ProfileFilterView, didSelect index: Int)
 }
 

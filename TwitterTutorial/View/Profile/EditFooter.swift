@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol EditProfileFooterDelegate: class {
+protocol EditProfileFooterDelegate: AnyObject {
     func handleLogout()
 }
 
